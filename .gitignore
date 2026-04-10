@@ -1,0 +1,38 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# SQLite database (auto-seeded on first run)
+backend/audit_trace_assistant.db
+
+# Frontend build output and dependencies
+frontend/.next/
+frontend/node_modules/
+
+# Local environment files
+.env
+.env.local
+backend/.env
+frontend/.env.local
+
+# Local process state and logs
+.deliverables_server_pid
+backend/.backend_pid
+frontend/.frontend_pid
+backend/.backend_tunnel_pid
+frontend/.frontend_tunnel_pid
+*.err.log
+*.out.log
+*.stdout.log
+*.stderr.log
+*_stderr.log
+*_stdout.log
+
+# Claude Code local state
+.claude/
+
+# Local tooling caches
+.npm-cache/
+.tunnel-tools/
+backend/.venv/
+backend/test_audit_trace_assistant*.db

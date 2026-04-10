@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 案例录入</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="entry">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="case-entry.html" data-page-link="entry">案例录入</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="case-detail.html">查看详情样例</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>录入流程</h2>
+          <a href="case-entry.html" data-page-link="entry">结构化字段</a>
+          <a href="case-detail.html" data-page-link="detail">详情展示结果</a>
+          <a href="admin.html" data-page-link="admin">后台维护配置</a>
+        </aside>
+
+        <main class="content">
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>案例录入页</h2>
+                <p>录入的不是一句结论，而是可以跨项目、跨年度复用的完整判断过程。</p>
+              </div>
+              <span class="chip">结构化录入</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label>公司</label>
+                <input class="input" value="华东制造集团" />
+              </div>
+              <div class="form-group">
+                <label>会计年度</label>
+                <input class="input" value="2025" />
+              </div>
+              <div class="form-group">
+                <label>科目</label>
+                <input class="input" value="主营业务收入" />
+              </div>
+              <div class="form-group">
+                <label>风险等级</label>
+                <select>
+                  <option selected>高</option>
+                  <option>中</option>
+                  <option>低</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>问题摘要</label>
+                <input class="input" value="跨期确认收入导致 12 月收入提前入账" />
+              </div>
+              <div class="form-group full">
+                <label>问题背景</label>
+                <textarea class="textarea">项目组在截止性测试中发现，公司将 2026 年 1 月实际发货的订单在 2025 年 12 月确认收入，原因是年末冲业绩压力较大，且销售与财务对收入确认时点理解不一致。</textarea>
+              </div>
+              <div class="form-group full">
+                <label>争议过程</label>
+                <textarea class="textarea">财务部门认为合同已签署、客户信用良好，经济利益大概率流入，因此可以提前确认；审计团队认为控制权未转移且发货与签收证据不足，不满足收入确认条件。双方围绕“控制权转移时点”和“物流签收证据”多轮沟通。</textarea>
+              </div>
+              <div class="form-group full">
+                <label>判断依据</label>
+                <textarea class="textarea">依据企业会计准则收入准则、合同约定交付条款、物流签收记录、出库单日期与客户回函，综合判断 2025 年末不应确认该笔收入。</textarea>
+              </div>
+              <div class="form-group full">
+                <label>最终结论</label>
+                <textarea class="textarea">调减 2025 年收入及对应应收账款，递延至 2026 年 1 月实际交付时确认；同步在管理建议中提示收入截止性控制缺陷。</textarea>
+              </div>
+              <div class="form-group full">
+                <label>参考分录</label>
+                <textarea class="textarea">借：主营业务收入 4,800,000
+贷：应收账款 4,800,000</textarea>
+              </div>
+              <div class="form-group full">
+                <label>附件 / 链接</label>
+                <input class="input" value="合同扫描件、物流签收截图、客户回函、底稿链接" />
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button data-mock-save>保存案例资产</button>
+              <a class="button secondary" href="case-detail.html">查看详情展示</a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

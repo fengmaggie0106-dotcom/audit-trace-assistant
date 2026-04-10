@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - 案例录入</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="entry">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="cases-new.html" data-page-link="entry">案例录入</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+      </nav>
+      <div class="actions"><a href="admin-content.html">后台</a></div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>录入字段</h2>
+        <a href="cases-new.html" data-page-link="entry">背景</a>
+        <a href="cases-new.html" data-page-link="entry">争议</a>
+        <a href="cases-new.html" data-page-link="entry">依据</a>
+        <a href="cases-new.html" data-page-link="entry">结论</a>
+      </aside>
+      <main class="content">
+        <section class="panel page-header">
+          <h1>案例录入</h1>
+          <p>这一页对应现有站点的案例录入路由，用静态字段展示结构化录入的完整性。</p>
+        </section>
+        <section class="form-card">
+          <div class="form-grid">
+            <div class="form-field"><label>公司</label><input class="input" value="华东制造集团" /></div>
+            <div class="form-field"><label>年度</label><input class="input" value="2025" /></div>
+            <div class="form-field"><label>科目</label><input class="input" value="主营业务收入" /></div>
+            <div class="form-field"><label>风险等级</label><select><option selected>高</option></select></div>
+            <div class="form-field full"><label>问题摘要</label><input class="input" value="跨期确认收入导致 12 月收入提前入账" /></div>
+            <div class="form-field full"><label>问题背景</label><textarea class="textarea">年末存在冲业绩压力，业务已签约但尚未签收。</textarea></div>
+            <div class="form-field full"><label>争议过程</label><textarea class="textarea">财务与审计围绕控制权转移时点存在明显分歧。</textarea></div>
+            <div class="form-field full"><label>判断依据</label><textarea class="textarea">收入准则、合同交付条款、物流签收与客户回函。</textarea></div>
+            <div class="form-field full"><label>最终结论</label><textarea class="textarea">调减 2025 年收入并递延至次年确认。</textarea></div>
+          </div>
+          <p><button class="button" data-mock-save>保存案例</button></p>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

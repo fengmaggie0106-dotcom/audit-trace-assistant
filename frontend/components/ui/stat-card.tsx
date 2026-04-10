@@ -6,10 +6,10 @@ type StatCardProps = {
 };
 
 const toneClasses: Record<NonNullable<StatCardProps["tone"]>, string> = {
-  default: "from-slate-950 to-slate-900 text-white",
-  critical: "from-rose-700 to-rose-600 text-white",
-  positive: "from-emerald-700 to-emerald-600 text-white",
-  accent: "from-cyan-700 to-sky-700 text-white",
+  default: "border-l-[var(--foreground)] bg-white",
+  critical: "border-l-rose-600 bg-rose-50/80",
+  positive: "border-l-emerald-600 bg-emerald-50/80",
+  accent: "border-l-[var(--accent-strong)] bg-[var(--accent-soft)]",
 };
 
 export function StatCard({
@@ -20,11 +20,11 @@ export function StatCard({
 }: StatCardProps) {
   return (
     <div
-      className={`rounded-[24px] bg-gradient-to-br p-5 shadow-[var(--shadow-card)] ${toneClasses[tone]}`}
+      className={`rounded-[18px] border border-[var(--border)] border-l-4 p-5 shadow-[var(--shadow-card)] ${toneClasses[tone]}`}
     >
-      <p className="text-sm font-medium text-white/78">{label}</p>
-      <p className="mt-4 text-3xl font-semibold tracking-tight">{value}</p>
-      <p className="mt-3 text-sm text-white/80">{helper}</p>
+      <p className="text-sm font-medium text-[var(--muted-foreground)]">{label}</p>
+      <p className="mt-4 text-3xl font-semibold tracking-tight text-[var(--foreground)]">{value}</p>
+      <p className="mt-3 text-sm leading-6 text-[var(--muted-foreground)]">{helper}</p>
     </div>
   );
 }

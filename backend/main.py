@@ -26,7 +26,7 @@ def get_allowed_origins() -> list[str]:
 
 app = FastAPI(
     title="Audit Trace Assistant API",
-    description="API for the 业审追溯助手 formal web platform.",
+    description="API for the 业审追溯助手 platform.",
 )
 
 app.add_middleware(
@@ -268,6 +268,7 @@ def update_case(
 
     for key, value in payload.model_dump().items():
         setattr(case, key, value)
+
     case.created_by = admin.username
     db.commit()
     db.refresh(case)
@@ -364,8 +365,10 @@ def update_risk_rule(
     rule = db.query(models.RiskRule).filter(models.RiskRule.id == rule_id).first()
     if not rule:
         raise HTTPException(status_code=404, detail="Risk rule not found")
+
     for key, value in payload.model_dump().items():
         setattr(rule, key, value)
+
     rule.updated_by = admin.username
     db.commit()
     db.refresh(rule)
@@ -445,7 +448,7 @@ def assistant_query(payload: schemas.AssistantQuery, db: Session = Depends(get_d
     ranked_cases = sorted(cases, key=lambda case: score_case(case, tokens), reverse=True)
     matched_cases = [case for case in ranked_cases if score_case(case, tokens) > 0][:3]
 
-    matched_rule_suggestions = []
+    matched_rule_suggestions: list[str] = []
     for rule in rules:
         patterns = [item.strip().lower() for item in rule.keyword_pattern.split(",") if item.strip()]
         if any(pattern in payload.question.lower() for pattern in patterns):
@@ -453,12 +456,12 @@ def assistant_query(payload: schemas.AssistantQuery, db: Session = Depends(get_d
 
     if not matched_cases:
         next_actions = matched_rule_suggestions or [
-            "先在历史查询页按公司和科目缩小范围",
-            "补录问题背景、争议过程和判断依据",
-            "将新增案例纳入知识库后再进行二次检索",
+            "先在案例库按公司、年度和科目缩小范围。",
+            "补录问题背景、争议过程和判断依据。",
+            "将新增案例纳入知识库后再进行二次检索。",
         ]
         return schemas.AssistantResponse(
-            answer="当前问题在案例库中没有直接命中。建议先按公司、年度、科目筛选后补录判断依据和争议过程，再形成可追溯案例。",
+            answer="当前问题在案例库中没有直接命中。建议先按公司、年度和科目筛选后补录判断依据与争议过程，再形成可追溯案例。",
             matched_cases=[],
             next_actions=next_actions,
         )
@@ -468,13 +471,13 @@ def assistant_query(payload: schemas.AssistantQuery, db: Session = Depends(get_d
         f"基于历史案例，当前问题更接近“{lead_case.title}”。"
         f" 该案例发生在 {lead_case.company_name} {lead_case.fiscal_year} 年，"
         f"核心处理结论是：{lead_case.conclusion}"
-        " 建议优先核查问题背景是否一致，再比对判断依据和参考分录。"
+        " 建议优先核对问题背景是否一致，再比对判断依据和参考分录。"
     )
 
     next_actions = matched_rule_suggestions or [
-        "核对本次问题与历史案例的业务背景是否一致",
-        "重点复核争议过程中的判断依据和支持材料",
-        "如处理结论拟采纳，请同步补录本次附件和分录依据",
+        "核对本次问题与历史案例的业务背景是否一致。",
+        "重点复核争议过程中的判断依据和支持材料。",
+        "如处理结论拟采纳，请同步补录本次附件和分录依据。",
     ]
 
     return schemas.AssistantResponse(

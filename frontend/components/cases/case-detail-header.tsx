@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import type { CaseRecord } from "@/lib/types";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { TagChip } from "@/components/ui/tag-chip";
+import type { CaseRecord } from "@/lib/types";
 
 type CaseDetailHeaderProps = {
   item: CaseRecord;
@@ -10,67 +10,72 @@ type CaseDetailHeaderProps = {
 
 export function CaseDetailHeader({ item }: CaseDetailHeaderProps) {
   return (
-    <div className="rounded-[30px] border border-[var(--border)] bg-[linear-gradient(135deg,rgba(6,24,44,1),rgba(11,53,88,0.95))] p-7 text-white shadow-[var(--shadow-card)]">
-      <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
-        <div className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            <StatusBadge label={item.risk_level} kind="risk" />
-            <StatusBadge label={item.status} />
-          </div>
-          <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">
-              可追溯案例资产
-            </p>
-            <h1 className="max-w-4xl text-3xl font-semibold tracking-tight md:text-4xl">
-              {item.title}
-            </h1>
-            <p className="max-w-4xl text-base leading-7 text-slate-200">{item.summary}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {item.tags.map((tag) => (
-              <TagChip key={tag} label={tag} />
-            ))}
-          </div>
+    <div className="rounded-[20px] border border-[var(--border)] bg-white p-7 shadow-[var(--shadow-card)]">
+      <div className="space-y-6">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted-foreground)]">
+          <Link href="/search" className="transition hover:text-[var(--accent-strong)]">
+            案例库
+          </Link>
+          <span>/</span>
+          <span>案例详情</span>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href="/search"
-            className="rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-          >
-            返回历史查询
-          </Link>
-          <Link
-            href="/cases/new"
-            className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
-          >
-            继续录入新案例
-          </Link>
-        </div>
-      </div>
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <StatusBadge label={item.risk_level} kind="risk" />
+              <StatusBadge label={item.status} />
+              <TagChip label={item.issue_type} />
+            </div>
 
-      <div className="mt-8 grid gap-4 border-t border-white/12 pt-6 md:grid-cols-2 xl:grid-cols-4">
-        <div>
-          <p className="text-sm text-slate-300">公司</p>
-          <p className="mt-1 font-semibold">
-            {item.company_name} / {item.company_code}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-slate-300">期间</p>
-          <p className="mt-1 font-semibold">
-            {item.fiscal_year} / {item.fiscal_period}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-slate-300">科目</p>
-          <p className="mt-1 font-semibold">
-            {item.account_name} / {item.account_code}
-          </p>
-        </div>
-        <div>
-          <p className="text-sm text-slate-300">录入人</p>
-          <p className="mt-1 font-semibold">{item.created_by}</p>
+            <div className="space-y-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--accent-strong)]">
+                Audit case document
+              </p>
+              <h1
+                className="max-w-4xl text-3xl font-semibold tracking-tight text-[var(--foreground)] md:text-4xl"
+                style={{ fontFamily: '"Iowan Old Style", "Noto Serif SC", "Songti SC", serif' }}
+              >
+                {item.title}
+              </h1>
+              <p className="max-w-4xl text-base leading-7 text-[var(--muted-foreground)]">
+                {item.summary}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <div className="rounded-full border border-[var(--border)] bg-[var(--panel-subtle)] px-3 py-2 text-sm text-[var(--foreground)]">
+                {item.company_name} / {item.company_code}
+              </div>
+              <div className="rounded-full border border-[var(--border)] bg-[var(--panel-subtle)] px-3 py-2 text-sm text-[var(--foreground)]">
+                {item.fiscal_year} / {item.fiscal_period}
+              </div>
+              <div className="rounded-full border border-[var(--border)] bg-[var(--panel-subtle)] px-3 py-2 text-sm text-[var(--foreground)]">
+                {item.account_name} / {item.account_code}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/search"
+              className="rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent-strong)] hover:text-[var(--accent-strong)]"
+            >
+              返回案例库
+            </Link>
+            <Link
+              href="/dashboard"
+              className="rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent-strong)] hover:text-[var(--accent-strong)]"
+            >
+              查看风险洞察
+            </Link>
+            <Link
+              href="/ai"
+              className="rounded-full bg-[var(--accent-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+            >
+              交给助手分析
+            </Link>
+          </div>
         </div>
       </div>
     </div>

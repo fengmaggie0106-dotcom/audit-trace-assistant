@@ -27,6 +27,23 @@ class ApiError extends Error {
   }
 }
 
+function normalizeErrorMessage(text: string, status: number) {
+  if (!text) {
+    return `API request failed (${status})`;
+  }
+
+  try {
+    const parsed = JSON.parse(text) as { detail?: string };
+    if (parsed.detail) {
+      return parsed.detail;
+    }
+  } catch {
+    // Fall through to raw text when the response is not JSON.
+  }
+
+  return text;
+}
+
 function buildQueryString(filters: Record<string, string | undefined>) {
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([key, value]) => {
@@ -39,18 +56,33 @@ function buildQueryString(filters: Record<string, string | undefined>) {
 }
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options?.headers || {}),
-    },
-    cache: "no-store",
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(options?.headers || {}),
+      },
+      cache: "no-store",
+      signal: controller.signal,
+    });
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new ApiError("Request timed out", 408);
+    }
+    throw error;
+  }
+
+  clearTimeout(timeoutId);
 
   if (!response.ok) {
     const text = await response.text();
-    throw new ApiError(text || "API request failed", response.status);
+    throw new ApiError(normalizeErrorMessage(text, response.status), response.status);
   }
 
   return response.json() as Promise<T>;

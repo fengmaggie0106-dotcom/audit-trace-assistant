@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - 后台登录</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="admin">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="admin-login.html" data-page-link="admin">后台</a>
+      </nav>
+      <div class="actions"><a href="index.html">返回前台</a></div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>后台入口</h2>
+        <a href="admin-login.html" data-page-link="admin">管理员登录</a>
+        <a href="admin-content.html" data-page-link="admin">首页内容</a>
+      </aside>
+      <main class="content">
+        <section class="form-card">
+          <div class="page-header">
+            <h1>后台登录</h1>
+            <p>HTML 导出版仅模拟登录页面，不连接真实认证接口。</p>
+          </div>
+          <div class="form-grid">
+            <div class="form-field"><label>用户名</label><input class="input" value="admin" /></div>
+            <div class="form-field"><label>密码</label><input class="input" value="admin123" /></div>
+          </div>
+          <p><a class="button" href="admin-content.html">进入后台</a></p>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

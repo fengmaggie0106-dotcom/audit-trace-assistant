@@ -4,6 +4,20 @@
 
 ## 1. 本地运行步骤
 
+## 0. HTML 离线展示版
+
+如果暂时不走正式部署，仓库内也提供了两套可直接双击打开的 HTML 可视化交付物：
+
+- `deliverables/static-html-demo/`
+- `deliverables/html-export/`
+
+推荐入口：
+
+- `deliverables/static-html-demo/index.html`
+- `deliverables/html-export/index.html`
+
+这两套页面用于离线演示、答辩展示和文件分享，不是正式生产部署目标。
+
 ### 后端
 
 ```bash

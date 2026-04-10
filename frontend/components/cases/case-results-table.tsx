@@ -1,8 +1,9 @@
 import Link from "next/link";
 
-import type { CaseRecord } from "@/lib/types";
+import { EmptyState } from "@/components/ui/empty-state";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { TagChip } from "@/components/ui/tag-chip";
+import type { CaseRecord } from "@/lib/types";
 
 type CaseResultsTableProps = {
   cases: CaseRecord[];
@@ -11,28 +12,32 @@ type CaseResultsTableProps = {
 export function CaseResultsTable({ cases }: CaseResultsTableProps) {
   if (!cases.length) {
     return (
-      <div className="rounded-[22px] border border-dashed border-[var(--border)] bg-white px-6 py-12 text-center text-sm text-[var(--muted-foreground)]">
-        当前筛选条件下没有命中案例。建议先放宽关键词，或从公司与科目切入后继续追溯。
-      </div>
+      <EmptyState
+        title="没有命中的案例"
+        description="先放宽关键词，或者从公司、年度、科目三个结构字段重新切入。"
+      />
     );
   }
 
   return (
-    <div className="overflow-hidden rounded-[22px] border border-[var(--border)] bg-white">
+    <div className="overflow-hidden rounded-[18px] border border-[var(--border)] bg-white">
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse text-left">
           <thead className="bg-[var(--panel-subtle)]">
             <tr className="text-xs uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
-              <th className="px-5 py-4 font-semibold">案例主题</th>
-              <th className="px-5 py-4 font-semibold">公司 / 年度</th>
-              <th className="px-5 py-4 font-semibold">科目 / 类型</th>
+              <th className="px-5 py-4 font-semibold">案例文档</th>
+              <th className="px-5 py-4 font-semibold">组织索引</th>
+              <th className="px-5 py-4 font-semibold">问题归类</th>
               <th className="px-5 py-4 font-semibold">标签</th>
-              <th className="px-5 py-4 font-semibold">风险 / 状态</th>
+              <th className="px-5 py-4 font-semibold">状态</th>
             </tr>
           </thead>
           <tbody>
             {cases.map((item) => (
-              <tr key={item.id} className="border-t border-[var(--border)] align-top">
+              <tr
+                key={item.id}
+                className="border-t border-[var(--border)] align-top transition hover:bg-[var(--panel-subtle)]"
+              >
                 <td className="px-5 py-4">
                   <div className="space-y-2">
                     <Link
@@ -46,15 +51,15 @@ export function CaseResultsTable({ cases }: CaseResultsTableProps) {
                     </p>
                   </div>
                 </td>
-                <td className="px-5 py-4 text-sm text-[var(--muted-foreground)]">
+                <td className="px-5 py-4 text-sm leading-6 text-[var(--muted-foreground)]">
                   <p className="font-medium text-[var(--foreground)]">{item.company_name}</p>
-                  <p className="mt-1">
-                    {item.company_code} / {item.fiscal_year}
+                  <p>
+                    {item.company_code} / {item.fiscal_year} / {item.fiscal_period}
                   </p>
                 </td>
-                <td className="px-5 py-4 text-sm text-[var(--muted-foreground)]">
+                <td className="px-5 py-4 text-sm leading-6 text-[var(--muted-foreground)]">
                   <p className="font-medium text-[var(--foreground)]">{item.account_name}</p>
-                  <p className="mt-1">
+                  <p>
                     {item.account_code} / {item.issue_type}
                   </p>
                 </td>

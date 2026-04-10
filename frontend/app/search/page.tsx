@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
-import { fetchCases, fetchFilterOptions } from "@/lib/api";
-import type { CaseRecord, FilterOptions } from "@/lib/types";
 import { CaseResultsTable } from "@/components/cases/case-results-table";
 import { CaseSearchFilters } from "@/components/cases/case-search-filters";
 import { PageHeader } from "@/components/ui/page-header";
 import { SectionCard } from "@/components/ui/section-card";
+import { fetchCases, fetchFilterOptions } from "@/lib/api";
+import type { CaseRecord, FilterOptions } from "@/lib/types";
 
 const defaultFilters = {
   keyword: "",
@@ -31,6 +32,11 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 
+  const activeFilterCount = useMemo(
+    () => Object.values(filters).filter((value) => value.trim()).length,
+    [filters],
+  );
+
   const loadCases = async (activeFilters = filters) => {
     setLoading(true);
     setMessage("");
@@ -39,7 +45,7 @@ export default function SearchPage() {
       setCases(data);
     } catch (error) {
       console.error(error);
-      setMessage("案例查询失败，请确认后端服务已启动。");
+      setMessage("案例查询失败，请确认后端服务已经启动。");
     } finally {
       setLoading(false);
     }
@@ -48,15 +54,12 @@ export default function SearchPage() {
   useEffect(() => {
     async function bootstrap() {
       try {
-        const [optionData, caseData] = await Promise.all([
-          fetchFilterOptions(),
-          fetchCases(),
-        ]);
+        const [optionData, caseData] = await Promise.all([fetchFilterOptions(), fetchCases()]);
         setOptions(optionData);
         setCases(caseData);
       } catch (error) {
         console.error(error);
-        setMessage("初始化查询页失败，请检查接口状态。");
+        setMessage("初始化案例库失败，请检查接口状态。");
       } finally {
         setLoading(false);
       }
@@ -66,16 +69,25 @@ export default function SearchPage() {
   }, []);
 
   return (
-    <div className="space-y-8 py-6 md:py-8">
+    <div className="space-y-8 py-4 md:py-2">
       <PageHeader
-        eyebrow="历史查询"
-        title="围绕公司、年度、科目、关键词和标签，快速反查同类问题的处理路径。"
-        description="查询页不是普通列表，而是案例追溯入口。评委可以从这里直接跳到任意案例详情，看到背景、争议过程、依据、结论和参考分录。"
+        eyebrow="案例库"
+        title="让事务所历史判断可以被快速追溯、比较和继续调用"
+        description="案例库是主 workflow 中唯一的列表事实源，面向连续审计客户追溯、新客户类案参考、项目交接与复核支撑。"
+        actions={
+          <Link
+            href="/cases/new"
+            className="rounded-full bg-[var(--accent-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+          >
+            新建案例记录
+          </Link>
+        }
       />
 
       <SectionCard
-        title="筛选条件"
-        description="优先用结构化字段定位，再用关键词和标签细化到具体争议事项。"
+        title="检索条件"
+        description="先用结构字段缩小范围，再用关键词定位具体争议事项和判断链。"
+        tone="muted"
       >
         <CaseSearchFilters
           values={filters}
@@ -93,12 +105,14 @@ export default function SearchPage() {
       </SectionCard>
 
       <SectionCard
-        title={loading ? "正在查询案例..." : `查询结果（${cases.length}）`}
-        description="支持从结果表格直接进入详情页，演示完整追溯链路。"
+        title={loading ? "正在加载案例库..." : `案例结果 · ${cases.length} 条记录`}
+        description={
+          activeFilterCount
+            ? `当前已启用 ${activeFilterCount} 个筛选条件，事务所项目成员会基于同一份历史记录开展追溯。`
+            : "未启用筛选条件时，案例库展示全部案例资产，适合先理解事务所知识结构。"
+        }
       >
-        {message ? (
-          <p className="mb-4 text-sm font-medium text-rose-700">{message}</p>
-        ) : null}
+        {message ? <p className="mb-4 text-sm font-medium text-rose-700">{message}</p> : null}
         <CaseResultsTable cases={cases} />
       </SectionCard>
     </div>

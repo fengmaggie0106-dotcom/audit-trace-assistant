@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 静态演示版首页</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="home">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+          <a href="ai.html" data-page-link="ai">AI 助手</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="case-entry.html">录入新案例</a>
+          <a href="admin.html">后台管理</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>演示导航</h2>
+          <a href="index.html" data-page-link="home">首页总览</a>
+          <a href="case-entry.html" data-page-link="entry">案例录入</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="case-detail.html" data-page-link="detail">案例详情</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+          <a href="ai.html" data-page-link="ai">AI 助手</a>
+          <a href="admin.html" data-page-link="admin">后台管理</a>
+        </aside>
+
+        <main class="content">
+          <section class="hero">
+            <p class="eyebrow">平台定位</p>
+            <h1>不是 ERP，也不替代审计判断，而是把跨年度、跨项目、跨人员的经验追溯能力真正沉淀下来。</h1>
+            <p>
+              面向甲方财务、乙方审计团队和管理审核角色，围绕“问题发生 → 结构化录入 →
+              历史追溯 → AI 解释 → 风险提示”构建一套可长期积累的内控合规案例资产平台。
+            </p>
+            <div class="action-row">
+              <a class="button" href="search.html">进入历史查询</a>
+              <a class="button secondary" href="dashboard.html">查看风险看板</a>
+              <a class="button ghost" href="admin.html">查看后台编辑</a>
+            </div>
+          </section>
+
+          <section class="stat-grid">
+            <article class="stat-card">
+              <p class="label">案例资产总量</p>
+              <p class="value">128</p>
+              <p class="helper">覆盖收入确认、费用归集、往来核销、存货跌价等重点审计主题。</p>
+            </article>
+            <article class="stat-card">
+              <p class="label">高风险案例</p>
+              <p class="value">36</p>
+              <p class="helper">优先用于年度复核、进场前培训、热点错账预警。</p>
+            </article>
+            <article class="stat-card">
+              <p class="label">跨年度复用率</p>
+              <p class="value">74%</p>
+              <p class="helper">证明系统沉淀的是过程经验，而不是一次性结论。</p>
+            </article>
+            <article class="stat-card">
+              <p class="label">热点科目</p>
+              <p class="value">收入</p>
+              <p class="helper">看板持续聚焦高频错账、高争议科目和判断难点。</p>
+            </article>
+          </section>
+
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>平台边界与差异化</h2>
+                <p>帮助评委在 10 秒内理解系统定位，避免被误认为普通 ERP 或知识库。</p>
+              </div>
+            </div>
+            <div class="card-grid">
+              <div class="mini-card">
+                <h3>不是 ERP</h3>
+                <p>不负责日常业务流转，不替代凭证、单据、总账和结账功能。</p>
+              </div>
+              <div class="mini-card">
+                <h3>不是底稿系统</h3>
+                <p>不替代正式审计底稿归档，而是补足“经验追溯”和“判断复用”这一层。</p>
+              </div>
+              <div class="mini-card">
+                <h3>是案例资产平台</h3>
+                <p>沉淀问题背景、争议过程、判断依据、结论、分录和附件链接。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>双角色价值</h2>
+                <p>同一套案例资产可同时服务甲方财务与乙方审计团队。</p>
+              </div>
+            </div>
+            <div class="card-grid">
+              <div class="info-card">
+                <h3>甲方财务人员</h3>
+                <div class="chip-row">
+                  <span class="chip">历史问题预警</span>
+                  <span class="chip">分录参考</span>
+                  <span class="chip">跨年度复盘</span>
+                </div>
+              </div>
+              <div class="info-card">
+                <h3>乙方审计团队</h3>
+                <div class="chip-row">
+                  <span class="chip">入场前案例检索</span>
+                  <span class="chip">判断依据复用</span>
+                  <span class="chip">热点科目聚焦</span>
+                </div>
+              </div>
+              <div class="info-card">
+                <h3>管理审核角色</h3>
+                <div class="chip-row">
+                  <span class="chip">规则配置</span>
+                  <span class="chip">展示配置</span>
+                  <span class="chip">内容审核</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>业务闭环</h2>
+                <p>从问题发生到形成案例资产，再到 AI 解释和风险看板的完整链路。</p>
+              </div>
+            </div>
+            <div class="card-grid">
+              <div class="step-card"><h3>1. 问题发生</h3><p>现场发现异常、争议或错账线索。</p></div>
+              <div class="step-card"><h3>2. 结构化录入</h3><p>统一记录背景、争议、依据、结论、分录、附件。</p></div>
+              <div class="step-card"><h3>3. 形成资产</h3><p>案例可被检索、引用、持续追溯。</p></div>
+              <div class="step-card"><h3>4. 历史追溯</h3><p>按公司、年份、科目、标签快速筛选。</p></div>
+              <div class="step-card"><h3>5. AI 解释</h3><p>基于历史案例提供相似情形解释与建议。</p></div>
+              <div class="step-card"><h3>6. 风险提示</h3><p>沉淀为高频错账、调整趋势和热点科目看板。</p></div>
+            </div>
+          </section>
+
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>典型场景入口</h2>
+                <p>适合答辩时直接点击跳转，快速展示系统不是普通 CRUD 后台。</p>
+              </div>
+            </div>
+            <div class="card-grid">
+              <a class="scenario-card" href="case-entry.html">
+                <h3>新问题如何沉淀</h3>
+                <p>演示结构化录入如何把经验转成可追溯的案例资产。</p>
+              </a>
+              <a class="scenario-card" href="search.html">
+                <h3>跨年度历史追溯</h3>
+                <p>演示“公司 + 年份 + 科目 + 关键词 + 标签”的复合筛选。</p>
+              </a>
+              <a class="scenario-card" href="case-detail.html">
+                <h3>为什么这不是知识库</h3>
+                <p>演示案例详情页如何突出争议过程和判断依据。</p>
+              </a>
+              <a class="scenario-card" href="dashboard.html">
+                <h3>管理层如何看风险</h3>
+                <p>演示高频错账、热点科目与问题类型分布。</p>
+              </a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

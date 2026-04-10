@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { FieldBlock, controlClassName, textareaControlClassName } from "@/components/ui/form-controls";
+import { SectionCard } from "@/components/ui/section-card";
 import { createCase } from "@/lib/api";
 import type { CasePayload } from "@/lib/types";
-import { SectionCard } from "@/components/ui/section-card";
 
 const emptyForm = {
   title: "",
@@ -30,14 +31,6 @@ const emptyForm = {
   status: "待审核",
   created_by: "system",
 };
-
-function inputClassName() {
-  return "w-full rounded-2xl border border-[var(--border)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none transition focus:border-[var(--accent-strong)] focus:ring-4 focus:ring-[color:rgba(20,184,166,0.12)]";
-}
-
-function textareaClassName() {
-  return `${inputClassName()} min-h-[128px] resize-y`;
-}
 
 export function CaseForm() {
   const router = useRouter();
@@ -91,7 +84,7 @@ export function CaseForm() {
       router.push(`/cases/${result.id}`);
     } catch (error) {
       console.error(error);
-      setMessage("提交失败，请确认后端服务已启动并检查必填字段。");
+      setMessage("提交失败，请确认后端服务已启动，并检查必填字段。");
     } finally {
       setSubmitting(false);
     }
@@ -100,45 +93,208 @@ export function CaseForm() {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <SectionCard
-        title="结构化录入"
-        description="先固化索引字段，确保后续可以按公司、年度、科目、标签进行精准追溯。"
+        title="1. 结构化索引"
+        description="这些字段决定案例未来能否被快速检索、交接和复核。"
+        tone="muted"
       >
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <input className={inputClassName()} placeholder="案例主题" value={form.title} onChange={(event) => updateField("title", event.target.value)} required />
-          <input className={inputClassName()} placeholder="公司编码，如 BJ-001" value={form.company_code} onChange={(event) => updateField("company_code", event.target.value)} required />
-          <input className={inputClassName()} placeholder="公司名称" value={form.company_name} onChange={(event) => updateField("company_name", event.target.value)} required />
-          <input className={inputClassName()} placeholder="年度，如 2025" value={form.fiscal_year} onChange={(event) => updateField("fiscal_year", event.target.value)} required />
-          <input className={inputClassName()} placeholder="期间，如 2025-Q4" value={form.fiscal_period} onChange={(event) => updateField("fiscal_period", event.target.value)} required />
-          <input className={inputClassName()} placeholder="科目代码" value={form.account_code} onChange={(event) => updateField("account_code", event.target.value)} required />
-          <input className={inputClassName()} placeholder="科目名称" value={form.account_name} onChange={(event) => updateField("account_name", event.target.value)} required />
-          <input className={inputClassName()} placeholder="问题类型，如 收入确认" value={form.issue_type} onChange={(event) => updateField("issue_type", event.target.value)} required />
-          <input className={inputClassName()} placeholder="凭证或资料编号" value={form.voucher_reference} onChange={(event) => updateField("voucher_reference", event.target.value)} />
-          <select className={inputClassName()} value={form.risk_level} onChange={(event) => updateField("risk_level", event.target.value)}>
-            <option value="高">高风险</option>
-            <option value="中">中风险</option>
-            <option value="低">低风险</option>
-          </select>
-          <select className={inputClassName()} value={form.status} onChange={(event) => updateField("status", event.target.value)}>
-            <option value="待审核">待审核</option>
-            <option value="已确认">已确认</option>
-          </select>
-          <input className={inputClassName()} placeholder="录入人" value={form.created_by} onChange={(event) => updateField("created_by", event.target.value)} />
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <FieldBlock label="案例主题" hint="一句话概括这条记录的核心问题。">
+            <input
+              className={controlClassName}
+              placeholder="例如：收入提前确认导致跨期错报"
+              value={form.title}
+              onChange={(event) => updateField("title", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="公司编码">
+            <input
+              className={controlClassName}
+              placeholder="例如：BJ-001"
+              value={form.company_code}
+              onChange={(event) => updateField("company_code", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="公司名称">
+            <input
+              className={controlClassName}
+              placeholder="输入公司名称"
+              value={form.company_name}
+              onChange={(event) => updateField("company_name", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="年度">
+            <input
+              className={controlClassName}
+              placeholder="例如：2025"
+              value={form.fiscal_year}
+              onChange={(event) => updateField("fiscal_year", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="期间">
+            <input
+              className={controlClassName}
+              placeholder="例如：2025-Q4"
+              value={form.fiscal_period}
+              onChange={(event) => updateField("fiscal_period", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="问题类型">
+            <input
+              className={controlClassName}
+              placeholder="例如：收入确认"
+              value={form.issue_type}
+              onChange={(event) => updateField("issue_type", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="科目编码">
+            <input
+              className={controlClassName}
+              placeholder="输入科目编码"
+              value={form.account_code}
+              onChange={(event) => updateField("account_code", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="科目名称">
+            <input
+              className={controlClassName}
+              placeholder="输入科目名称"
+              value={form.account_name}
+              onChange={(event) => updateField("account_name", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="凭证或资料编号" hint="没有时可以留空。">
+            <input
+              className={controlClassName}
+              placeholder="输入凭证、底稿或资料编号"
+              value={form.voucher_reference}
+              onChange={(event) => updateField("voucher_reference", event.target.value)}
+            />
+          </FieldBlock>
+          <FieldBlock label="风险等级">
+            <select
+              className={controlClassName}
+              value={form.risk_level}
+              onChange={(event) => updateField("risk_level", event.target.value)}
+            >
+              <option value="高">高风险</option>
+              <option value="中">中风险</option>
+              <option value="低">低风险</option>
+            </select>
+          </FieldBlock>
+          <FieldBlock label="审核状态">
+            <select
+              className={controlClassName}
+              value={form.status}
+              onChange={(event) => updateField("status", event.target.value)}
+            >
+              <option value="待审核">待审核</option>
+              <option value="已确认">已确认</option>
+            </select>
+          </FieldBlock>
+          <FieldBlock label="录入人">
+            <input
+              className={controlClassName}
+              placeholder="输入录入人"
+              value={form.created_by}
+              onChange={(event) => updateField("created_by", event.target.value)}
+            />
+          </FieldBlock>
         </div>
       </SectionCard>
 
       <SectionCard
-        title="追溯内容"
-        description="案例库不仅记录结论，还要完整保留背景、争议过程和判断依据。"
+        title="2. 判断过程"
+        description="系统保留的不只是结论，而是完整的背景、争议与依据。"
+        tone="muted"
       >
-        <div className="grid gap-4 lg:grid-cols-2">
-          <textarea className={textareaClassName()} placeholder="问题摘要" value={form.summary} onChange={(event) => updateField("summary", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="问题背景" value={form.background} onChange={(event) => updateField("background", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="争议过程" value={form.dispute_process} onChange={(event) => updateField("dispute_process", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="判断依据" value={form.judgment_basis} onChange={(event) => updateField("judgment_basis", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="最终结论" value={form.conclusion} onChange={(event) => updateField("conclusion", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="参考分录" value={form.reference_entry} onChange={(event) => updateField("reference_entry", event.target.value)} required />
-          <textarea className={textareaClassName()} placeholder="标签，支持逗号、顿号或换行分隔" value={form.tags_text} onChange={(event) => updateField("tags_text", event.target.value)} />
-          <textarea className={textareaClassName()} placeholder="附件或资料链接，每行一个" value={form.attachment_links_text} onChange={(event) => updateField("attachment_links_text", event.target.value)} />
+        <div className="grid gap-5 lg:grid-cols-2">
+          <FieldBlock label="问题摘要" hint="给案例库和详情页提供第一眼判断依据。">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="简述问题核心、影响范围和争议焦点"
+              value={form.summary}
+              onChange={(event) => updateField("summary", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="问题背景">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="说明问题发生的业务场景、时间节点和相关前提"
+              value={form.background}
+              onChange={(event) => updateField("background", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="争议过程">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="记录项目成员、经理或客户之间的讨论过程"
+              value={form.dispute_process}
+              onChange={(event) => updateField("dispute_process", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="判断依据">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="整理准则、合同条款、证据链和审核逻辑"
+              value={form.judgment_basis}
+              onChange={(event) => updateField("judgment_basis", event.target.value)}
+              required
+            />
+          </FieldBlock>
+        </div>
+      </SectionCard>
+
+      <SectionCard
+        title="3. 结论与留痕"
+        description="把结论、分录和附件一起沉淀，形成可追责、可复用的正式案例。"
+        tone="muted"
+      >
+        <div className="grid gap-5 lg:grid-cols-2">
+          <FieldBlock label="最终结论">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="填写最终处理结果和执行建议"
+              value={form.conclusion}
+              onChange={(event) => updateField("conclusion", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="参考分录">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="把结论转化为可执行的会计处理或披露动作"
+              value={form.reference_entry}
+              onChange={(event) => updateField("reference_entry", event.target.value)}
+              required
+            />
+          </FieldBlock>
+          <FieldBlock label="标签" hint="支持逗号、顿号或换行分隔。">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="例如：收入确认、跨期调整、合同审阅"
+              value={form.tags_text}
+              onChange={(event) => updateField("tags_text", event.target.value)}
+            />
+          </FieldBlock>
+          <FieldBlock label="附件与资料链接" hint="每行一个链接，便于后续直接打开。">
+            <textarea
+              className={textareaControlClassName}
+              placeholder="粘贴资料链接、底稿地址或网盘路径"
+              value={form.attachment_links_text}
+              onChange={(event) => updateField("attachment_links_text", event.target.value)}
+            />
+          </FieldBlock>
         </div>
       </SectionCard>
 
@@ -146,13 +302,11 @@ export function CaseForm() {
         <button
           type="submit"
           disabled={submitting}
-          className="rounded-full bg-[var(--foreground)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--foreground-soft)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-full bg-[var(--accent-strong)] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitting ? "提交中..." : "提交并进入详情页"}
+          {submitting ? "提交中..." : "保存并进入案例详情"}
         </button>
-        {message ? (
-          <p className="text-sm font-medium text-[var(--accent-strong)]">{message}</p>
-        ) : null}
+        {message ? <p className="text-sm font-medium text-[var(--accent-strong)]">{message}</p> : null}
       </div>
     </form>
   );

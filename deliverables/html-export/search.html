@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - 历史查询</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="search">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        <a href="ai.html" data-page-link="ai">AI 助手</a>
+      </nav>
+      <div class="actions"><a href="case-1.html">案例详情</a></div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>查询条件</h2>
+        <a href="search.html" data-page-link="search">关键词</a>
+        <a href="search.html" data-page-link="search">公司</a>
+        <a href="search.html" data-page-link="search">年份</a>
+        <a href="search.html" data-page-link="search">科目</a>
+      </aside>
+      <main class="content">
+        <section class="panel page-header">
+          <h1>历史查询</h1>
+          <p>导出版保留了现有网站的查询结构，展示公司 / 年份 / 科目 / 标签筛选的结果组织方式。</p>
+        </section>
+        <section class="table-card">
+          <div class="toolbar">
+            <input class="input" value="收入 截止性" />
+            <select><option selected>华东制造集团</option></select>
+            <select><option selected>2025</option></select>
+            <select><option selected>主营业务收入</option></select>
+          </div>
+          <p><span class="chip">收入确认</span> <span class="chip">截止性</span> <span class="chip">高风险</span></p>
+          <table>
+            <thead><tr><th>案例</th><th>公司 / 年份</th><th>科目</th><th>风险</th></tr></thead>
+            <tbody>
+              <tr><td><a href="case-1.html">跨期确认收入导致 12 月收入提前入账</a></td><td>华东制造集团 / 2025</td><td>主营业务收入</td><td><span class="badge high">高</span></td></tr>
+              <tr><td><a href="case-1.html">返点冲减时点错误</a></td><td>华东制造集团 / 2024</td><td>主营业务收入</td><td><span class="badge medium">中</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

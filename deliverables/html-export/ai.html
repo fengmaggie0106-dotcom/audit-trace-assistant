@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - AI 助手</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="ai">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        <a href="ai.html" data-page-link="ai">AI 助手</a>
+      </nav>
+      <div class="actions"><a href="case-1.html">案例详情</a></div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>AI 能力</h2>
+        <a href="ai.html" data-page-link="ai">问答</a>
+        <a href="ai.html" data-page-link="ai">推荐</a>
+        <a href="ai.html" data-page-link="ai">解释</a>
+      </aside>
+      <main class="content">
+        <section class="panel page-header">
+          <h1>AI 助手</h1>
+          <p>导出版展示当前 AI 页面如何基于历史案例做问答与建议输出。</p>
+        </section>
+        <section class="panel">
+          <p><strong>用户：</strong> 12 月签约、1 月发货，是否能在年末确认收入？</p>
+          <p><strong>助手：</strong> 从历史案例看，更接近控制权未转移的场景，建议重点核查签收证据、交付条款和客户确认。</p>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

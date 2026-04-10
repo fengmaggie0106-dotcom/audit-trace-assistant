@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 风险看板</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="dashboard">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+          <a href="ai.html" data-page-link="ai">AI 助手</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="admin.html">规则配置</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>看板视角</h2>
+          <a href="dashboard.html" data-page-link="dashboard">高频错账</a>
+          <a href="dashboard.html" data-page-link="dashboard">热点科目</a>
+          <a href="dashboard.html" data-page-link="dashboard">调整趋势</a>
+        </aside>
+
+        <main class="content">
+          <section class="stat-grid">
+            <article class="stat-card">
+              <p class="label">本期高风险案例</p>
+              <p class="value">36</p>
+              <p class="helper">建议作为进场前重点培训主题。</p>
+            </article>
+            <article class="stat-card">
+              <p class="label">重复发生问题</p>
+              <p class="value">18</p>
+              <p class="helper">跨年度复发，适合纳入常态化预警。</p>
+            </article>
+            <article class="stat-card">
+              <p class="label">本期建议调整金额</p>
+              <p class="value">￥1,280 万</p>
+              <p class="helper">主要集中在收入、存货、往来科目。</p>
+            </article>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="dashboard-card">
+              <div class="section-header"><div><h2>问题类型分布</h2></div></div>
+              <div class="chart">
+                <div class="bar-row"><div class="bar-label"><span>收入确认</span><span>16</span></div><div class="bar-track"><div class="bar-fill" style="width: 92%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>成本归集</span><span>11</span></div><div class="bar-track"><div class="bar-fill" style="width: 68%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>存货跌价</span><span>9</span></div><div class="bar-track"><div class="bar-fill" style="width: 56%"></div></div></div>
+              </div>
+            </article>
+            <article class="dashboard-card">
+              <div class="section-header"><div><h2>热点科目</h2></div></div>
+              <div class="chart">
+                <div class="bar-row"><div class="bar-label"><span>主营业务收入</span><span>14</span></div><div class="bar-track"><div class="bar-fill" style="width: 86%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>应收账款</span><span>10</span></div><div class="bar-track"><div class="bar-fill" style="width: 62%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>存货</span><span>8</span></div><div class="bar-track"><div class="bar-fill" style="width: 48%"></div></div></div>
+              </div>
+            </article>
+            <article class="dashboard-card">
+              <div class="section-header"><div><h2>年度调整趋势</h2></div></div>
+              <div class="chart">
+                <div class="bar-row"><div class="bar-label"><span>2023</span><span>￥620 万</span></div><div class="bar-track"><div class="bar-fill" style="width: 46%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>2024</span><span>￥970 万</span></div><div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div></div>
+                <div class="bar-row"><div class="bar-label"><span>2025</span><span>￥1,280 万</span></div><div class="bar-track"><div class="bar-fill" style="width: 94%"></div></div></div>
+              </div>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

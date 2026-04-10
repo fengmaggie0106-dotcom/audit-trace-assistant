@@ -9,17 +9,6 @@ import { AdminNav } from "@/components/admin/admin-nav";
 import { PageHeader } from "@/components/ui/page-header";
 import { SectionCard } from "@/components/ui/section-card";
 
-const emptyRule = {
-  name: "",
-  description: "",
-  risk_level: "中",
-  trigger_account: "",
-  keyword_pattern: "",
-  suggestion: "",
-  enabled: true,
-  sort_order: 100,
-};
-
 export default function AdminRulesPage() {
   const [rules, setRules] = useState<RiskRule[]>([]);
   const [message, setMessage] = useState("");
@@ -30,7 +19,17 @@ export default function AdminRulesPage() {
   }
 
   useEffect(() => {
-    void loadRules();
+    let cancelled = false;
+
+    void fetchAdminRiskRules(getAdminToken()).then((result) => {
+      if (!cancelled) {
+        setRules(result);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

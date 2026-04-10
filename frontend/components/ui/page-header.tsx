@@ -14,19 +14,22 @@ export function PageHeader({
   actions,
 }: PageHeaderProps) {
   return (
-    <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-      <div className="max-w-3xl space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent-strong)]">
+    <div className="flex flex-col gap-5 border-b border-[var(--border)] pb-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="max-w-4xl space-y-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--accent-strong)]">
           {eyebrow}
         </p>
-        <h1 className="text-3xl font-semibold tracking-tight text-[var(--foreground)] md:text-4xl">
+        <h1
+          className="text-3xl font-semibold tracking-tight text-[var(--foreground)] md:text-4xl"
+          style={{ fontFamily: '"Iowan Old Style", "Noto Serif SC", "Songti SC", serif' }}
+        >
           {title}
         </h1>
         <p className="text-base leading-7 text-[var(--muted-foreground)]">
           {description}
         </p>
       </div>
-      {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
+      {actions ? <div className="flex flex-wrap gap-3 lg:justify-end">{actions}</div> : null}
     </div>
   );
 }

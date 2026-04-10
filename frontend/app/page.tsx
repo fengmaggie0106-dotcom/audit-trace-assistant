@@ -3,20 +3,15 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchDashboard, fetchSiteContent, fetchStats } from "@/lib/api";
-import type { DashboardData, SiteContent, StatsData } from "@/lib/types";
+import { CasePreviewCard } from "@/components/cases/case-preview-card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PageHeader } from "@/components/ui/page-header";
 import { SectionCard } from "@/components/ui/section-card";
 import { StatCard } from "@/components/ui/stat-card";
-import { TagChip } from "@/components/ui/tag-chip";
+import { fetchDashboard, fetchSiteContent } from "@/lib/api";
+import type { DashboardData, SiteContent } from "@/lib/types";
 
-const defaultStats: StatsData = {
-  total_cases: 0,
-  high_risk_cases: 0,
-  confirmed_cases: 0,
-};
-
-const defaultDashboard: DashboardData = {
+const emptyDashboard: DashboardData = {
   total_cases: 0,
   high_risk_cases: 0,
   confirmed_cases: 0,
@@ -30,95 +25,210 @@ const defaultDashboard: DashboardData = {
 
 const defaultContent: SiteContent = {
   section_key: "homepage",
-  title: "首页内容",
+  title: "工作台",
   body: "",
   is_published: true,
   updated_by: "system",
   items: {
-    hero_eyebrow: "平台定位",
-    hero_title:
-      "不是 ERP，也不替代审计判断，而是把跨年度、跨人员、跨项目的经验真正留存下来。",
+    hero_eyebrow: "事务所工作台",
+    hero_title: "把分散在项目文件与个人经验里的审计判断，沉淀成可追溯的案例资产",
     hero_description:
-      "业审追溯助手面向甲方财务人员、乙方审计团队和管理审核角色，围绕“问题发生 -> 结构化录入 -> 历史追溯 -> AI解释 -> 风险提示”构建审计与合规经验的闭环平台。",
-    boundary_cards: [],
-    role_values: [],
+      "平台面向会计师事务所乙方审计团队，服务于经验沉淀、案例追溯、风险提示和判断过程留痕，不替代审计判断，但帮助团队更快、更一致、更可追责地开展项目工作。",
     core_values: [],
-    flow_steps: [],
     scenario_links: [],
   },
 };
 
+const workflowSteps = [
+  {
+    href: "/cases/new",
+    title: "沉淀项目问题",
+    description: "把问题背景、争议过程、判断依据和结论录入为标准案例。",
+  },
+  {
+    href: "/search",
+    title: "追溯历史判断",
+    description: "按客户、年度、科目和标签回看事务所过往处理逻辑。",
+  },
+  {
+    href: "/dashboard",
+    title: "复盘风险分布",
+    description: "从案例资产里观察高频问题、热点科目和待复核积压。",
+  },
+  {
+    href: "/ai",
+    title: "生成辅助建议",
+    description: "在历史案例基础上组织解释、建议动作和类案参考。",
+  },
+];
+
+const defaultPrinciples = [
+  {
+    title: "面向事务所，而非泛用户平台",
+    description: "主用户是乙方审计团队，首页语言与路径全部围绕项目执行、复核和交接。",
+  },
+  {
+    title: "保留完整判断链，而不是只存结论",
+    description: "系统同时沉淀问题、争议、依据、结论和责任边界，方便后续复盘与自我保护。",
+  },
+  {
+    title: "让知识跨年度、跨项目、跨人员延续",
+    description: "案例库不是本年归档目录，而是事务所可持续积累与调用的知识资产。",
+  },
+];
+
+const defaultScenarioLinks = [
+  {
+    href: "/search",
+    title: "追溯连续审计客户问题",
+    description: "快速定位去年如何判断、今年是否延续、哪些口径需要修订。",
+  },
+  {
+    href: "/cases/new",
+    title: "沉淀新项目判断过程",
+    description: "把讨论记录、依据和最终结论及时固化为正式案例。",
+  },
+  {
+    href: "/dashboard",
+    title: "查看高频风险与热点科目",
+    description: "从沉淀案例里提炼下一个项目最值得先关注的风险区域。",
+  },
+  {
+    href: "/ai",
+    title: "调用类案生成辅助建议",
+    description: "在不替代专业判断的前提下，提高解释与准备效率。",
+  },
+];
+
 export default function HomePage() {
-  const [stats, setStats] = useState(defaultStats);
-  const [dashboard, setDashboard] = useState(defaultDashboard);
+  const [dashboard, setDashboard] = useState(emptyDashboard);
   const [content, setContent] = useState(defaultContent);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function load() {
       try {
-        const [statsData, dashboardData, siteContent] = await Promise.all([
-          fetchStats(),
+        setMessage("");
+        const [dashboardData, siteContent] = await Promise.all([
           fetchDashboard(),
           fetchSiteContent("homepage"),
         ]);
-        setStats(statsData);
         setDashboard(dashboardData);
         setContent(siteContent);
       } catch (error) {
         console.error(error);
+        setMessage("工作台暂时无法同步后端数据，当前展示的是本地兜底内容。请确认后端服务已启动。");
       }
     }
 
     void load();
   }, []);
 
-  const homepage = useMemo(() => content.items as Record<string, any>, [content.items]);
-  const boundaryCards = Array.isArray(homepage.boundary_cards) ? homepage.boundary_cards : [];
-  const roleValues = Array.isArray(homepage.role_values) ? homepage.role_values : [];
-  const coreValues = Array.isArray(homepage.core_values) ? homepage.core_values : [];
-  const flowSteps = Array.isArray(homepage.flow_steps) ? homepage.flow_steps : [];
-  const scenarioLinks = Array.isArray(homepage.scenario_links) ? homepage.scenario_links : [];
+  const homepage = useMemo(() => content.items as Record<string, unknown>, [content.items]);
+  const principles = Array.isArray(homepage.core_values)
+    ? (homepage.core_values as Array<{ title: string; description: string }>)
+    : [];
+  const scenarioLinks = Array.isArray(homepage.scenario_links)
+    ? (homepage.scenario_links as Array<{ href: string; title: string; description: string }>)
+    : [];
+
+  const resolvedPrinciples = principles.length ? principles.slice(0, 3) : defaultPrinciples;
+  const resolvedLinks = scenarioLinks.length ? scenarioLinks.slice(0, 4) : defaultScenarioLinks;
 
   return (
-    <div className="space-y-8 py-6 md:py-8">
+    <div className="space-y-8 py-4 md:py-2">
       <PageHeader
-        eyebrow={String(homepage.hero_eyebrow || "平台定位")}
+        eyebrow={String(homepage.hero_eyebrow || "事务所工作台")}
         title={String(homepage.hero_title || defaultContent.items.hero_title)}
-        description={String(
-          homepage.hero_description || defaultContent.items.hero_description,
-        )}
+        description={String(homepage.hero_description || defaultContent.items.hero_description)}
         actions={
           <>
             <Link
               href="/search"
-              className="rounded-full bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--foreground-soft)]"
+              className="rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent-strong)] hover:text-[var(--accent-strong)]"
             >
-              进入历史查询
+              打开案例库
             </Link>
             <Link
               href="/cases/new"
-              className="rounded-full border border-[var(--border)] bg-white px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition hover:border-[var(--accent-strong)] hover:text-[var(--accent-strong)]"
+              className="rounded-full bg-[var(--accent-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
             >
-              录入案例
+              新建记录
             </Link>
           </>
         }
       />
 
+      {message ? (
+        <div className="rounded-[18px] border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-800">
+          {message}
+        </div>
+      ) : null}
+
       <div className="grid gap-4 xl:grid-cols-4">
-        <StatCard label="案例资产总量" value={stats.total_cases} helper="覆盖可长期积累的结构化案例记录" tone="default" />
-        <StatCard label="高风险案例" value={stats.high_risk_cases} helper="适合用于前置预警和重点复核" tone="critical" />
-        <StatCard label="已确认案例" value={stats.confirmed_cases} helper="审核通过后可被持续复用" tone="positive" />
-        <StatCard label="热点科目" value={dashboard.hot_accounts[0]?.label || "待生成"} helper="看板持续聚焦高频错账和争议科目" tone="accent" />
+        <StatCard
+          label="案例资产"
+          value={dashboard.total_cases}
+          helper="事务所当前已沉淀、可被持续调用的结构化审计案例总量。"
+          tone="default"
+        />
+        <StatCard
+          label="高风险案例"
+          value={dashboard.high_risk_cases}
+          helper="适合优先复核和项目准备阶段重点参考的高风险样本。"
+          tone="critical"
+        />
+        <StatCard
+          label="已确认案例"
+          value={dashboard.confirmed_cases}
+          helper="经过审核确认，可作为后续项目判断参考的案例底稿。"
+          tone="positive"
+        />
+        <StatCard
+          label="待复核记录"
+          value={dashboard.pending_cases}
+          helper="提醒团队哪些新沉淀记录尚未完成复核闭环。"
+          tone="accent"
+        />
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
-        <SectionCard title="平台边界" description={content.body || "平台定位与现有系统边界说明。"}>
-          <div className="grid gap-4 md:grid-cols-3">
-            {boundaryCards.map((item: { title: string; description: string }) => (
+      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <SectionCard title="事务所主 workflow" description="把主路径控制在少数页面里，让逻辑更连续。">
+          <div className="grid gap-3">
+            {workflowSteps.map((step, index) => (
+              <Link
+                key={step.href}
+                href={step.href}
+                className="flex items-start gap-4 rounded-[18px] border border-[var(--border)] bg-[var(--panel-subtle)] px-4 py-4 transition hover:border-[var(--border-strong)] hover:bg-white"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-white text-sm font-semibold text-[var(--accent-strong)]">
+                  {index + 1}
+                </div>
+                <div className="space-y-1">
+                  <p className="text-sm font-semibold text-[var(--foreground)]">{step.title}</p>
+                  <p className="text-sm leading-6 text-[var(--muted-foreground)]">
+                    {step.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </SectionCard>
+
+        <SectionCard
+          title="平台定义"
+          description="用更克制、更专业的方式说明平台定位和边界。"
+          tone="muted"
+        >
+          <p className="text-sm leading-7 text-[var(--muted-foreground)]">
+            {content.body ||
+              "这是一个面向会计师事务所乙方审计团队的审计知识追溯与风险提示工作台。它不替代 ERP，也不替代审计师判断，而是把原本分散在底稿、邮件、纪要和个人经验中的判断依据，沉淀成事务所可长期积累和持续调用的案例资产。"}
+          </p>
+          <div className="mt-5 grid gap-3">
+            {resolvedPrinciples.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[22px] border border-[var(--border)] bg-[var(--panel-subtle)] p-5"
+                className="rounded-[16px] border border-[var(--border)] bg-white px-4 py-4"
               >
                 <p className="text-sm font-semibold text-[var(--foreground)]">{item.title}</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
@@ -128,95 +238,93 @@ export default function HomePage() {
             ))}
           </div>
         </SectionCard>
-
-        <SectionCard title="双角色价值" description="同一套案例资产同时服务甲方财务和乙方审计。">
-          <div className="grid gap-4">
-            {roleValues.map((card: { title: string; points: string[] }) => (
-              <div key={card.title} className="rounded-[22px] border border-[var(--border)] bg-[var(--panel-subtle)] p-5">
-                <p className="text-sm font-semibold text-[var(--foreground)]">{card.title}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {card.points.map((point) => (
-                    <TagChip key={point} label={point} />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_1.2fr]">
-        <SectionCard title="核心能力" description="首页 10 秒内说明白系统做什么。">
-          <div className="grid gap-4 md:grid-cols-2">
-            {coreValues.map((item: { title: string; description: string }) => (
-              <div key={item.title} className="rounded-[22px] border border-[var(--border)] bg-[var(--panel-subtle)] p-5">
-                <p className="text-base font-semibold text-[var(--foreground)]">{item.title}</p>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
-
-        <SectionCard title="业务闭环" description="从问题发生到形成长期能力，平台记录的不只是处理结论。">
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {flowSteps.map((step: string, index: number) => (
-              <div key={step} className="rounded-[22px] border border-[var(--border)] bg-white p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent-strong)]">
-                  Step {index + 1}
-                </p>
-                <p className="mt-3 text-base font-semibold text-[var(--foreground)]">{step}</p>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
-      </div>
-
-      <div className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
-        <SectionCard title="典型场景入口" description="答辩时可按场景直接跳转。">
-          <div className="grid gap-4 md:grid-cols-2">
-            {scenarioLinks.map(
-              (item: { href: string; title: string; description: string }) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-[22px] border border-[var(--border)] bg-white p-5 transition hover:-translate-y-0.5 hover:border-[var(--accent-strong)] hover:shadow-[var(--shadow-card)]"
-                >
-                  <p className="text-base font-semibold text-[var(--foreground)]">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
-                    {item.description}
-                  </p>
-                </Link>
-              ),
+      <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <SectionCard
+          title="最近更新的案例"
+          description="首页只保留最近活动，不再把更多页面入口平铺在主流程前面。"
+          actions={
+            <Link
+              href="/search"
+              className="text-sm font-semibold text-[var(--accent-strong)] transition hover:opacity-80"
+            >
+              查看全部案例
+            </Link>
+          }
+        >
+          <div className="space-y-4">
+            {dashboard.recent_cases.length ? (
+              dashboard.recent_cases.slice(0, 4).map((item) => (
+                <CasePreviewCard
+                  key={item.id}
+                  href={`/cases/${item.id}`}
+                  title={item.title}
+                  meta={`${item.company_name} / ${item.fiscal_year} / ${item.account_name}`}
+                  summary={item.summary}
+                  issueType={item.issue_type}
+                />
+              ))
+            ) : (
+              <EmptyState
+                title="还没有最近案例"
+                description="先录入一条案例，工作台会把它作为最近活动展示在这里。"
+                action={
+                  <Link
+                    href="/cases/new"
+                    className="rounded-full bg-[var(--accent-strong)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                  >
+                    去新建记录
+                  </Link>
+                }
+              />
             )}
           </div>
         </SectionCard>
 
-        <SectionCard title="近期案例样本" description="证明这不是普通知识库，而是过程可追溯系统。">
-          <div className="space-y-4">
-            {dashboard.recent_cases.slice(0, 4).map((item) => (
+        <SectionCard title="二级能力入口" description="把洞察和助手收为能力模块，避免主导航显得过多。">
+          <div className="grid gap-4 md:grid-cols-2">
+            {resolvedLinks.slice(2).map((item) => (
               <Link
-                key={item.id}
-                href={`/cases/${item.id}`}
-                className="block rounded-[22px] border border-[var(--border)] bg-[var(--panel-subtle)] p-5 transition hover:border-[var(--accent-strong)]"
+                key={item.href}
+                href={item.href}
+                className="rounded-[18px] border border-[var(--border)] bg-[var(--panel-subtle)] px-5 py-5 transition hover:border-[var(--border-strong)] hover:bg-white"
               >
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-base font-semibold text-[var(--foreground)]">
-                    {item.title}
-                  </p>
-                  <TagChip label={item.issue_type} />
-                </div>
+                <p className="text-base font-semibold text-[var(--foreground)]">{item.title}</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
-                  {item.company_name} / {item.fiscal_year} / {item.account_name}
+                  {item.description}
                 </p>
               </Link>
             ))}
           </div>
+
+          <div className="mt-5 rounded-[18px] border border-[var(--border)] bg-white px-5 py-5">
+            <p className="text-sm font-semibold text-[var(--foreground)]">当前重点关注</p>
+            <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
+              {dashboard.hot_accounts[0]?.label
+                ? `近期事务所案例里最值得优先复盘的热点科目是 ${dashboard.hot_accounts[0].label}。`
+                : "等待更多案例沉淀后，这里会自动提示值得优先复盘的热点科目。"}
+            </p>
+          </div>
         </SectionCard>
       </div>
+
+      <SectionCard title="典型使用场景" description="把平台价值落到连续审计、新客户和问题留痕三类真实场景。">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {resolvedLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-[18px] border border-[var(--border)] bg-[var(--panel-subtle)] px-5 py-5 transition hover:border-[var(--border-strong)] hover:bg-white"
+            >
+              <p className="text-base font-semibold text-[var(--foreground)]">{item.title}</p>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted-foreground)]">
+                {item.description}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </SectionCard>
     </div>
   );
 }

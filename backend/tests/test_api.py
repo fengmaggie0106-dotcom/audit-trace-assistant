@@ -84,7 +84,7 @@ class AuditTraceApiTests(unittest.TestCase):
             "summary": "年末发货未签收提前确认收入。",
             "background": "客户签收单据滞后，财务按发货单确认收入。",
             "dispute_process": "财务认为风险报酬已转移，审计要求补充签收依据。",
-            "judgment_basis": "依据企业会计准则第14号及合同条款判断控制权转移时点。",
+            "judgment_basis": "依据企业会计准则第 14 号及合同条款判断控制权转移时点。",
             "conclusion": "建议冲回收入并待签收后确认。",
             "reference_entry": "借：主营业务收入 120000；贷：应收账款 120000",
             "risk_level": "高",
@@ -120,7 +120,7 @@ class AuditTraceApiTests(unittest.TestCase):
                 "account_name": "库存商品",
                 "issue_type": "存货减值",
                 "summary": "库龄过长但未计提跌价准备。",
-                "background": "积压存货在库超过18个月。",
+                "background": "积压存货在库超过 18 个月。",
                 "dispute_process": "业务部门认为仍可出售，审计关注可变现净值。",
                 "judgment_basis": "根据期后售价和在手订单测算可变现净值。",
                 "conclusion": "补提存货跌价准备。",
@@ -161,6 +161,34 @@ class AuditTraceApiTests(unittest.TestCase):
         self.assertEqual(assistant_response.status_code, 200)
         self.assertIn("answer", assistant_response.json())
         self.assertIn("matched_cases", assistant_response.json())
+
+    def test_seeded_homepage_content_matches_firm_positioning(self):
+        db = self.SessionLocal()
+        try:
+            db.query(models.SiteContent).filter(models.SiteContent.section_key == "homepage").delete()
+            db.commit()
+        finally:
+            db.close()
+
+        main.ensure_seeded()
+        response = self.client.get("/site-content/homepage")
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["items"]["hero_eyebrow"], "事务所工作台")
+        self.assertIn("会计师事务所", payload["items"]["hero_title"])
+        self.assertIn("乙方审计团队", payload["items"]["hero_description"])
+
+    def test_seeded_demo_cases_are_richer_and_more_diverse(self):
+        response = self.client.get("/cases")
+
+        self.assertEqual(response.status_code, 200)
+        items = response.json()
+        self.assertGreaterEqual(len(items), 12)
+        issue_types = {item["issue_type"] for item in items}
+        self.assertTrue(
+            {"收入确认", "存货减值", "资金核对", "费用截止", "商誉减值", "所得税"}.issubset(issue_types)
+        )
 
     def test_admin_can_update_homepage_content(self):
         headers = self.login_admin()
@@ -256,7 +284,7 @@ class AuditTraceApiTests(unittest.TestCase):
             json={
                 "description": "看板展示配置",
                 "config_value": {
-                    "headline": "高频错账与调整趋势",
+                    "headline": "高频错报与调整趋势",
                     "show_recent_cases": True,
                 },
             },
@@ -267,7 +295,7 @@ class AuditTraceApiTests(unittest.TestCase):
         self.assertEqual(public_response.status_code, 200)
         self.assertEqual(
             public_response.json()["config_value"]["headline"],
-            "高频错账与调整趋势",
+            "高频错报与调整趋势",
         )
 
 

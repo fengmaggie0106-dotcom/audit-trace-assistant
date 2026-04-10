@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - 案例详情</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="detail">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="case-1.html" data-page-link="detail">案例详情</a>
+        <a href="ai.html" data-page-link="ai">AI 助手</a>
+      </nav>
+      <div class="actions"><a href="dashboard.html">风险看板</a></div>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>详情结构</h2>
+        <a href="case-1.html" data-page-link="detail">问题摘要</a>
+        <a href="case-1.html" data-page-link="detail">问题背景</a>
+        <a href="case-1.html" data-page-link="detail">争议过程</a>
+        <a href="case-1.html" data-page-link="detail">判断依据</a>
+      </aside>
+      <main class="content">
+        <section class="detail-card">
+          <div class="page-header">
+            <h1>案例详情</h1>
+            <p>导出版完整保留“问题背景、争议过程、判断依据、结论、分录、附件”这一专业结构。</p>
+          </div>
+          <p><span class="badge high">高风险</span> <span class="chip">收入确认</span> <span class="chip">截止性</span></p>
+          <div class="meta-grid">
+            <div class="meta-item"><div class="label">公司</div><div class="value">华东制造集团</div></div>
+            <div class="meta-item"><div class="label">年度</div><div class="value">2025</div></div>
+            <div class="meta-item"><div class="label">科目</div><div class="value">主营业务收入</div></div>
+            <div class="meta-item"><div class="label">录入人</div><div class="value">王晨</div></div>
+          </div>
+          <div class="grid-2">
+            <div class="info-block"><h3>问题背景</h3><p>订单在次年发货，年末尚未签收，但财务在 12 月确认收入。</p></div>
+            <div class="info-block"><h3>争议过程</h3><p>财务强调合同已签，审计强调控制权与签收证据尚未完成。</p></div>
+            <div class="info-block"><h3>判断依据</h3><p>收入准则、合同条款、物流签收和客户回函构成核心证据。</p></div>
+            <div class="info-block"><h3>最终结论</h3><p>调减 2025 年收入，递延到 2026 年确认，并提示控制缺陷。</p></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 案例详情</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="detail">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="case-detail.html" data-page-link="detail">案例详情</a>
+          <a href="ai.html" data-page-link="ai">AI 助手</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="dashboard.html">查看风险看板</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>详情锚点</h2>
+          <a href="#summary" data-page-link="detail">问题摘要</a>
+          <a href="#background" data-page-link="detail">问题背景</a>
+          <a href="#dispute" data-page-link="detail">争议过程</a>
+          <a href="#basis" data-page-link="detail">判断依据</a>
+          <a href="#conclusion" data-page-link="detail">最终结论</a>
+        </aside>
+
+        <main class="content">
+          <section class="detail-card">
+            <div class="section-header">
+              <div>
+                <h2 id="summary">跨期确认收入导致 12 月收入提前入账</h2>
+                <p>这不是单纯的知识条目，而是一条完整记录问题背景、争议过程、判断依据和处理结论的可追溯案例资产。</p>
+              </div>
+              <span class="status-badge high">高风险</span>
+            </div>
+
+            <div class="meta-grid">
+              <div class="meta-item"><span class="meta-label">公司</span><span class="meta-value">华东制造集团</span></div>
+              <div class="meta-item"><span class="meta-label">会计年度</span><span class="meta-value">2025</span></div>
+              <div class="meta-item"><span class="meta-label">科目</span><span class="meta-value">主营业务收入</span></div>
+              <div class="meta-item"><span class="meta-label">录入人</span><span class="meta-value">项目经理 王晨</span></div>
+              <div class="meta-item"><span class="meta-label">录入时间</span><span class="meta-value">2026-01-08</span></div>
+              <div class="meta-item"><span class="meta-label">标签</span><span class="meta-value">收入确认 / 截止性 / 物流签收</span></div>
+            </div>
+          </section>
+
+          <section class="section-card" id="background">
+            <div class="section-header"><div><h2>问题背景</h2></div></div>
+            <p>项目组在截止性测试中发现，公司将 2026 年 1 月实际发货的订单在 2025 年 12 月确认收入。年末存在明显冲业绩诉求，销售与财务对收入确认时点理解不一致，且内部流程未对签收证据进行强校验。</p>
+          </section>
+
+          <section class="section-card" id="dispute">
+            <div class="section-header"><div><h2>争议过程</h2><p>详情页重点展示“为什么产生争议、如何完成判断”。</p></div></div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <h3>财务初始观点</h3>
+                <p>合同已签署、客户信誉良好、款项预计可收回，因此倾向于提前确认收入。</p>
+              </div>
+              <div class="timeline-item">
+                <h3>审计团队反驳</h3>
+                <p>控制权尚未转移，物流签收和客户确认存在时间差，证据链不完整。</p>
+              </div>
+              <div class="timeline-item">
+                <h3>补充核查</h3>
+                <p>调取出库单、物流轨迹、签收截图和客户回函，复核合同交付条款。</p>
+              </div>
+              <div class="timeline-item">
+                <h3>最终统一处理</h3>
+                <p>确认 2025 年末不满足收入确认条件，建议跨期调整并补强内部控制。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-card" id="basis">
+            <div class="section-header"><div><h2>判断依据</h2></div></div>
+            <div class="card-grid">
+              <div class="info-card">
+                <h3>准则依据</h3>
+                <p>企业会计准则收入准则要求在客户取得相关商品控制权时确认收入。</p>
+              </div>
+              <div class="info-card">
+                <h3>合同依据</h3>
+                <p>合同明确约定由客户签收作为交付完成标志，年末尚未满足。</p>
+              </div>
+              <div class="info-card">
+                <h3>证据依据</h3>
+                <p>物流签收时间晚于资产负债表日，客户回函亦指向次月收货。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section-card" id="conclusion">
+            <div class="section-header"><div><h2>最终结论</h2></div></div>
+            <p>调减 2025 年收入及应收账款 480 万元，递延至 2026 年 1 月完成交付时确认。同步纳入管理建议，提示公司补充“收入确认截止性复核”控制点。</p>
+          </section>
+
+          <section class="section-card">
+            <div class="section-header"><div><h2>参考分录与附件</h2></div></div>
+            <div class="card-grid">
+              <div class="info-card">
+                <h3>参考分录</h3>
+                <p>借：主营业务收入 4,800,000<br />贷：应收账款 4,800,000</p>
+              </div>
+              <div class="info-card">
+                <h3>附件资料</h3>
+                <p>合同扫描件、物流签收截图、客户回函、项目底稿索引、管理建议链接。</p>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

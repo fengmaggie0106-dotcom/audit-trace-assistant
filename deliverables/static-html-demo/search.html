@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 历史查询</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="search">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="case-detail.html" data-page-link="detail">案例详情</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="case-entry.html">录入新案例</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>查询维度</h2>
+          <a href="search.html" data-page-link="search">关键词追溯</a>
+          <a href="search.html" data-page-link="search">公司 / 年份 / 科目</a>
+          <a href="search.html" data-page-link="search">标签筛选</a>
+        </aside>
+
+        <main class="content">
+          <section class="table-card">
+            <div class="section-header">
+              <div>
+                <h2>历史查询页</h2>
+                <p>支持公司、年份、科目、关键词、标签筛选，体现“案例追溯”而非简单列表查询。</p>
+              </div>
+            </div>
+
+            <div class="table-toolbar">
+              <input class="input" value="收入 截止性 签收" />
+              <select><option selected>华东制造集团</option></select>
+              <select><option selected>2025</option></select>
+              <select><option selected>主营业务收入</option></select>
+            </div>
+
+            <div class="chip-row">
+              <span class="chip" data-chip-toggle>收入确认</span>
+              <span class="chip" data-chip-toggle>截止性</span>
+              <span class="chip" data-chip-toggle>高风险</span>
+              <span class="chip" data-chip-toggle>跨年度复发</span>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>案例</th>
+                  <th>公司 / 年份</th>
+                  <th>科目</th>
+                  <th>风险</th>
+                  <th>标签</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="case-detail.html">跨期确认收入导致年末收入提前入账</a></td>
+                  <td>华东制造集团 / 2025</td>
+                  <td>主营业务收入</td>
+                  <td><span class="status-badge high">高风险</span></td>
+                  <td>收入确认、截止性、签收证据</td>
+                </tr>
+                <tr>
+                  <td><a href="case-detail.html">返点冲减时点错误导致收入净额失真</a></td>
+                  <td>华东制造集团 / 2024</td>
+                  <td>主营业务收入</td>
+                  <td><span class="status-badge medium">中风险</span></td>
+                  <td>返利政策、净额法、追溯调整</td>
+                </tr>
+                <tr>
+                  <td><a href="case-detail.html">发货未签收的跨省订单年末集中确认收入</a></td>
+                  <td>华南渠道公司 / 2023</td>
+                  <td>主营业务收入</td>
+                  <td><span class="status-badge high">高风险</span></td>
+                  <td>物流签收、控制权转移、收入截止</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

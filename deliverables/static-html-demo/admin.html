@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - 后台管理</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="admin">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="admin.html" data-page-link="admin">后台管理</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+          <a href="case-detail.html" data-page-link="detail">案例详情</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="index.html">返回前台</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>后台模块</h2>
+          <a href="admin.html" data-page-link="admin">首页内容</a>
+          <a href="admin.html" data-page-link="admin">案例管理</a>
+          <a href="admin.html" data-page-link="admin">风险规则</a>
+          <a href="admin.html" data-page-link="admin">展示配置</a>
+        </aside>
+
+        <main class="content">
+          <section class="admin-card">
+            <div class="section-header">
+              <div>
+                <h2>后台可编辑能力演示</h2>
+                <p>模拟管理员通过网页直接编辑首页文案、案例内容、风险规则和展示配置。</p>
+              </div>
+              <span class="chip">管理员视角</span>
+            </div>
+            <div class="card-grid">
+              <div class="config-item">
+                <h3>首页内容</h3>
+                <p>平台定位、双角色价值、场景入口、Hero 区文案。</p>
+              </div>
+              <div class="config-item">
+                <h3>案例管理</h3>
+                <p>可更新问题背景、争议过程、判断依据、结论和附件链接。</p>
+              </div>
+              <div class="config-item">
+                <h3>风险规则</h3>
+                <p>配置高频错账提示、看板聚焦维度和 AI 风险提示口径。</p>
+              </div>
+              <div class="config-item">
+                <h3>展示配置</h3>
+                <p>决定看板标题、排序逻辑、默认推荐内容和展示开关。</p>
+              </div>
+            </div>
+            <div class="button-row">
+              <button data-mock-save>保存配置</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

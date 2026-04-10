@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 HTML 导出版 - 首页</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="home">
+    <header class="topbar">
+      <div class="brand">业审追溯助手</div>
+      <nav>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        <a href="ai.html" data-page-link="ai">AI 助手</a>
+      </nav>
+      <div class="actions">
+        <a href="admin-login.html">后台</a>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar">
+        <h2>导出版导航</h2>
+        <a href="index.html" data-page-link="home">首页</a>
+        <a href="cases-new.html" data-page-link="entry">案例录入</a>
+        <a href="search.html" data-page-link="search">历史查询</a>
+        <a href="case-1.html" data-page-link="detail">案例详情</a>
+        <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+        <a href="ai.html" data-page-link="ai">AI 助手</a>
+      </aside>
+
+      <main class="content">
+        <section class="hero">
+          <p class="eyebrow">平台定位</p>
+          <h1>面向审计与财务协作场景的内控合规案例追溯平台</h1>
+          <p>这是一套贴近当前正式网站结构的纯 HTML 导出版，用于离线展示首页、查询页、详情页、看板页与后台页面。</p>
+          <div class="toolbar">
+            <a class="button" href="search.html">进入历史查询</a>
+            <a class="button secondary" href="case-1.html">查看案例详情</a>
+          </div>
+        </section>
+
+        <section class="grid-4">
+          <article class="stat-card"><p class="label">案例总量</p><h2>128</h2><p>覆盖收入、成本、存货、往来等主题。</p></article>
+          <article class="stat-card"><p class="label">高风险案例</p><h2>36</h2><p>支持项目进场前重点复核。</p></article>
+          <article class="stat-card"><p class="label">热点科目</p><h2>主营业务收入</h2><p>高频出现在跨年度争议中。</p></article>
+          <article class="stat-card"><p class="label">后台可编辑模块</p><h2>4</h2><p>首页内容、案例、规则、展示配置。</p></article>
+        </section>
+      </main>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>业审追溯助手 - AI 助手</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script defer src="assets/app.js"></script>
+  </head>
+  <body data-page="ai">
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">业审追溯助手</div>
+        <nav class="topbar-nav">
+          <a href="index.html" data-page-link="home">首页</a>
+          <a href="search.html" data-page-link="search">历史查询</a>
+          <a href="dashboard.html" data-page-link="dashboard">风险看板</a>
+          <a href="ai.html" data-page-link="ai">AI 助手</a>
+        </nav>
+        <div class="topbar-actions">
+          <a href="case-detail.html">相似案例详情</a>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <h2>助手能力</h2>
+          <a href="ai.html" data-page-link="ai">历史案例问答</a>
+          <a href="ai.html" data-page-link="ai">相似案例推荐</a>
+          <a href="ai.html" data-page-link="ai">判断逻辑解释</a>
+        </aside>
+
+        <main class="content">
+          <section class="section-card">
+            <div class="section-header">
+              <div>
+                <h2>AI 助手页</h2>
+                <p>基于历史案例进行解释和建议输出，强调“有依据的辅助”，而不是拍脑袋式回答。</p>
+              </div>
+            </div>
+            <div class="chat-list">
+              <div class="chat-bubble user">如果订单在 12 月签合同、1 月发货，能否在 12 月确认收入？</div>
+              <div class="chat-bubble assistant">
+                基于历史案例，当前更接近“控制权尚未转移”的情形。建议优先核查合同交付条款、物流签收日期、客户验收证据和回函。若签收在次年完成，则年末确认收入的风险较高。
+              </div>
+              <div class="chat-bubble assistant">
+                相似案例：
+                <br />1. 华东制造集团 2025 年跨期确认收入案例
+                <br />2. 华南渠道公司 2023 年发货未签收案例
+                <br />3. 区域销售返点冲减时点错误案例
+              </div>
+            </div>
+            <div class="button-row">
+              <a class="button" href="case-detail.html">查看相似案例详情</a>
+              <button class="button ghost" data-mock-save>生成建议摘要</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <div class="notice" data-toast></div>
+  </body>
+</html>
